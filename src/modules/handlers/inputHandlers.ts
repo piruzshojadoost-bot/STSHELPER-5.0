@@ -316,14 +316,40 @@ export function setupInputHandlers() {
         }
     });
     
-    // Visa spara-knapp när användaren redigerar GLOSA
+    // Auto-resize GLOSA textarea och visa spara-knapp när användaren redigerar
+    const autoResizeGlosa = () => {
+        if (glosaPreview) {
+            glosaPreview.style.height = 'auto';
+            glosaPreview.style.height = glosaPreview.scrollHeight + 'px';
+        }
+    };
+    
     glosaPreview?.addEventListener('input', () => {
+        autoResizeGlosa();
         if (glosaPreview.value !== currentOriginalGlosa) {
             saveGlosaBtn?.classList.remove('hidden');
         } else {
             saveGlosaBtn?.classList.add('hidden');
         }
     });
+    
+    glosaPreview?.addEventListener('focus', autoResizeGlosa);
+    
+    // Initial resize för när GLOSA visas första gången
+    const glosaObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const target = mutation.target as HTMLElement;
+                if (!target.classList.contains('hidden') && glosaPreview) {
+                    setTimeout(autoResizeGlosa, 50);
+                }
+            }
+        });
+    });
+    
+    if (glosaPane) {
+        glosaObserver.observe(glosaPane, { attributes: true });
+    }
     
     // Spara korrigering till aiLearningSystem
     saveGlosaBtn?.addEventListener('click', async () => {

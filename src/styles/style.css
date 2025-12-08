@@ -599,48 +599,12 @@ html[data-theme='light'] .logo-crescent {
     }
 }
 
-/* Input action buttons */
-.input-action-btn {
-    min-width: var(--touch-target);
-    min-height: var(--touch-target);
-    padding: var(--space-sm);
-    bottom: var(--space-sm);
-}
-
-#generateRandomTextBtn {
-    left: var(--space-sm);
-}
-
-#imageInputBtn {
-    right: calc(var(--touch-target) + var(--space-md));
-}
-
-#voiceInputBtn {
-    right: var(--space-sm);
-}
-
-@media (max-width: 360px) {
-    .input-action-btn {
-        min-width: 36px;
-        min-height: 36px;
-        padding: 0.25rem;
-    }
-    
-    .input-action-btn svg {
-        width: 18px;
-        height: 18px;
-    }
-    
-    #imageInputBtn {
-        right: calc(36px + var(--space-sm));
-    }
-}
+/* Input action buttons - removed absolute positioning, now regular buttons */
 
 /* === RESPONSIVE INPUT AREA === */
 #originalTextDisplay {
     font-size: var(--text-base);
     padding: var(--space-md);
-    padding-bottom: calc(var(--space-md) + 2.5rem); /* Space for buttons */
     min-height: clamp(100px, 15vh, 180px);
 }
 
@@ -652,23 +616,6 @@ html[data-theme='light'] .logo-crescent {
     min-width: var(--touch-target);
     min-height: var(--touch-target);
     padding: var(--space-sm);
-}
-
-/* Input area action buttons positioning */
-.input-aurora-wrapper button[id$="Btn"] {
-    bottom: var(--space-sm);
-}
-
-#generateRandomTextBtn {
-    left: var(--space-sm);
-}
-
-#imageInputBtn {
-    right: calc(var(--touch-target) + var(--space-md));
-}
-
-#voiceInputBtn {
-    right: var(--space-sm);
 }
 
 @media (max-width: 360px) {

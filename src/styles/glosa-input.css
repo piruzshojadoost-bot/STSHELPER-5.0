@@ -52,6 +52,8 @@
     position: relative;
     overflow: visible;
     height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .glosa-preview-wrapper::before {
@@ -73,14 +75,14 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    min-height: 80px;
+    min-height: clamp(100px, 15vh, 180px);
     background: transparent;
     border: none;
     resize: none;
     outline: none;
     font-family: inherit;
     height: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
 }
 
 .glosa-preview-text::placeholder {
