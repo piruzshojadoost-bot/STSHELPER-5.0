@@ -19,6 +19,9 @@ import { setupInputHandlers } from '../handlers/inputHandlers';
 import { setupNavHandlers } from '../handlers/navHandlers';
 import { setupSystemHandlers } from '../handlers/systemHandlers';
 
+// Import Genuina Tecken
+import { setupGenuinaTecken } from '../genuina/genuinaHandlers';
+
 // Import Services
 import { initLexiconStatusHeader } from '../../services/lexiconStatusHeader';
 import { quotaTracker } from '../../services/quotaTracker';
@@ -184,6 +187,9 @@ export function initCore() {
     setupInputHandlers();
     setupNavHandlers();
     setupSystemHandlers();
+    
+    // 6a. Setup Genuina Tecken
+    setupGenuinaTecken().catch(e => console.error("Genuina tecken init failed:", e));
 
     // 6b. ARCHIVED: GLOSATranscription component moved to _archived/
     // Sign Language Transcription Lexicon (GLOSA) is still integrated in main app through other means

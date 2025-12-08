@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/src/styles/components.css">
 <link rel="stylesheet" href="/src/styles/style.css">
 <link rel="stylesheet" href="/src/styles/glosa-input.css">
+<link rel="stylesheet" href="/src/styles/genuina-tecken.css">
 </head>
 <body class="transition-colors duration-300">
     <div id="app-content">
@@ -121,7 +122,7 @@
                 </div>
                 
                 <!-- Input Helper Buttons -->
-                <div class="flex items-center justify-start gap-3 mt-4">
+                <div class="flex items-center justify-start gap-3 mt-4 flex-wrap">
                     <button type="button" id="generateRandomTextBtn" class="btn btn-secondary btn-sm" data-tooltip-text="Generera exempel">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 20.25a4.5 4.5 0 005.657-5.657l-1.414-1.414a.75.75 0 00-1.06 0l-.172.172a.75.75 0 000 1.06l1.414 1.414a2.25 2.25 0 01-3.182 3.182l-1.414-1.414a.75.75 0 00-1.06 0l-.172.172a.75.75 0 000 1.06l1.414 1.414A4.5 4.5 0 0012 20.25z"></path></svg>
                         <span>Generera exempel</span>
@@ -129,6 +130,10 @@
                     <button type="button" id="voiceInputBtn" class="btn btn-secondary btn-sm" data-tooltip-text="Tala in text">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                         <span>Tala in</span>
+                    </button>
+                    <button type="button" id="genuinaTeckenBtn" class="btn btn-secondary btn-sm" data-tooltip-text="Genuina tecken">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                        <span>Genuina tecken</span>
                     </button>
                     <button type="button" id="imageInputBtn" class="btn btn-secondary btn-sm dev-only" style="display: none;" data-tooltip-text="Analysera bild">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -160,6 +165,21 @@
                 </div>
             </section>
 
+            <!-- Genuina Tecken Modal -->
+            <div id="genuinaTeckenModal" class="genuina-tecken-modal hidden">
+                <div class="genuina-tecken-content">
+                    <div class="genuina-tecken-header">
+                        <div class="genuina-tecken-title">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                            Genuina Tecken
+                        </div>
+                        <button id="genuinaTeckenClose" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+                    </div>
+                    <input type="text" id="genuinaTeckenSearch" class="genuina-tecken-search" placeholder="Sök genuina tecken...">
+                    <div id="genuinaTeckenList" class="genuina-tecken-list"></div>
+                </div>
+            </div>
+            
             <!-- GLOSA Feedback Modal -->
             <div id="glosaFeedbackModal" class="modal hidden">
                 <div class="absolute inset-0 bg-black/40" id="glosaFeedbackBackdrop"></div>
