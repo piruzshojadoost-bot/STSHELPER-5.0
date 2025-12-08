@@ -1,0 +1,13 @@
+
+/* --- GENERAL LAYOUT & POSITIONING --- */
+.message-box {
+    position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    min-width: 300px; max-width: 90%;
+}
+
+/* --- TEST MODE --- */
+/* Disables transitions and animations when tests are running for stability */
+.test-mode, .test-mode * {
+    transition: none !important;
+    animation: none !important;
+}

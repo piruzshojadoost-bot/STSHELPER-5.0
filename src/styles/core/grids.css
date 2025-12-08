@@ -1,0 +1,14 @@
+
+/* --- VIDEO GRID LAYOUT --- */
+#videoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); /* Adjusted min size */
+    gap: var(--space-lg); /* Increased gap */
+    align-items: stretch;
+}
+
+.video-grid-alphabet {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}

@@ -1,0 +1,64 @@
+{
+  "filterRules": {
+    "ignoreWords": {
+      "description": "Vanliga svenska ord som oftast tas bort i teckenspråk.",
+      "stopwords": ["en", "ett", "den", "det", "de", "är", "varit", "vara", "och", "eller", "men", "att", "på", "i", "vid", "om", "hans", "hennes", "dess", "deras", "vår", "er", "med", "utan", "också", "så", "för", "mot", "till", "från", "innan", "efter", "över", "under", "mellan", "väl", "ju", "då", "här", "där"],
+      "articles": ["en", "ett", "den", "det", "de", "denna", "detta", "dessa"],
+      "copula": ["är", "var", "varit", "vara", "blir", "blev", "är inte"],
+      "prepositions": ["på", "i", "vid", "om", "från", "till", "under", "över", "innan", "efter", "mellan"],
+      "conjunctions": ["och", "eller", "men", "för", "så", "än", "utan"]
+    },
+    "priorityWords": {
+      "description": "Ord som alltid ska visas i glossning.",
+      "categories": {
+        "nouns": true,
+        "verbs": true,
+        "adjectives": true,
+        "adverbs": true,
+        "questionWords": ["vem", "vad", "var", "när", "varför", "hur", "vilken", "vilka"]
+      }
+    },
+    "contextWords": {
+      "description": "Ord som ger extra betydelse och alltid ska behållas.",
+      "timeWords": ["igår", "idag", "imorgon", "nyss", "förut", "senare", "nu", "då", "alltid", "aldrig", "snart", "ofta", "sällan"],
+      "locationWords": ["hemma", "här", "där", "vägen", "skolan", "jobbet", "affären", "universitet", "sjukhus", "station", "park", "restaurang"],
+      "negationWords": ["inte", "ingen", "inget", "ingenting", "aldrig", "utan"],
+      "quantifiers": ["alla", "ingen", "några", "många", "få", "mycket", "lite", "varje", "hela"]
+    },
+    "addWords": {
+      "description": "Ord/koncept som läggs till för tydlighet i teckenspråk.",
+      "facial_markers": ["FRÅGANDE_ANSIKTSSIGNAL", "NEGATIV_ANSIKTSSIGNAL", "FÖRVÅNAD_ANSIKTSSIGNAL"],
+      "emphasizers": ["MYCKET", "LITE", "VERKLIGEN", "EXTRA"],
+      "clarifiers": ["EXEMPEL", "KONTEXT", "FÖRHÅLLANDE", "BETONING"]
+    }
+  },
+  "translationRules": {
+    "swedish_to_signlanguage": [
+      {
+        "pattern": "subjekt verb objekt",
+        "tsl_pattern": "KONTEXT VERB OBJEKT",
+        "example": "Jag läser boken → JAG LÄSA BOK"
+      },
+      {
+        "pattern": "verb med riktning",
+        "tsl_pattern": "PERSON1 GE→PERSON2 OBJEKT",
+        "example": "Jag gav honom boken → JAG GE DÄR BOK"
+      },
+      {
+        "pattern": "fråga",
+        "tsl_pattern": "FRÅGEORD... [frågande ansiktssignal]",
+        "example": "Vad heter du? → VAD HETA DU [frågande ansiktssignal]"
+      },
+      {
+        "pattern": "negation",
+        "tsl_pattern": "... INTE... [huvudskakning + negativ ansiktssignal]",
+        "example": "Jag vill inte → JAG VILJA INTE [negativ ansiktssignal]"
+      },
+      {
+        "pattern": "tidsord först",
+        "tsl_pattern": "TIDSORD ... RESTEN AV MENINGEN",
+        "example": "Igår gick jag till skolan → IGÅR JAG GÅ SKOLA"
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+
+/* --- DUAL PROGRESS BARS (MAIN & HEADER) --- */
+.progress-bar-wrapper {
+    width: 100%;
+    background-color: var(--border-color);
+    border-radius: 9999px;
+    height: 0.6rem;
+    overflow: hidden;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0%;
+    background-color: var(--primary-blue);
+    border-radius: 9999px;
+    transition: width var(--transition-normal) ease;
+}
+.progress-bar-inner.completed {
+    background-color: var(--green-vote);
+}
+.status-icon svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--green-vote);
+}
+
+/* Header-specific progress bars */
+.progress-row-header {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.progress-label-header {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    width: 30px; /* Fixed width for alignment */
+}
+.progress-bar-wrapper-header {
+    flex-grow: 1;
+    height: 0.4rem;
+    background-color: var(--border-color);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.progress-bar-inner-header {
+    height: 100%;
+    width: 0%;
+    background-color: var(--primary-blue);
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+}
+.progress-bar-inner-header.completed {
+    background-color: var(--green-vote);
+}
+.progress-percentage-header {
+    font-size: 0.65rem;
+    font-family: monospace;
+    color: var(--text-secondary);
+    width: 25px; /* Fixed width for alignment */
+    text-align: right;
+}

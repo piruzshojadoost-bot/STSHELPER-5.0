@@ -1,0 +1,145 @@
+:root {
+    /* Material Design 8dp Grid Spacing Scale */
+    --space-xs: 0.5rem;      /* 8dp */
+    --space-sm: 1rem;        /* 16dp */
+    --space-md: 1.5rem;      /* 24dp */
+    --space-lg: 2rem;        /* 32dp */
+    --space-xl: 2.5rem;      /* 40dp */
+    --space-xxl: 4rem;       /* 64dp */
+
+    /* Material Design Button Dimensions */
+    --button-height: 3.5rem;     /* 56px (Material standard) */
+    --button-height-sm: 2.5rem;  /* 40px (Small buttons) */
+    --button-padding-h: 1rem;    /* 16px horizontal */
+    --button-padding-v: 0.5rem;  /* 8px vertical */
+    --button-text: 1rem;         /* 16px (Material standard) */
+
+    /* Material Design Touch Targets */
+    --touch-min: 3rem;  /* 48px minimum touch area */
+
+    /* Material Design Text Sizes */
+    --text-h1: 1.5rem;   /* 24px */
+    --text-h2: 1.25rem;  /* 20px */
+    --text-h3: 1.125rem; /* 18px */
+    --text-body: 1rem;   /* 16px */
+    --text-button: 1rem; /* 16px */
+    --text-caption: 0.75rem; /* 12px */
+
+    /* Border Radius */
+    --border-radius-sm: 0.5rem;  /* 8dp Material style */
+    --border-radius-md: 0.75rem;
+    --border-radius-lg: 1rem;
+    --border-radius-pill: 9999px;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    /* New: Slower, silky smooth curve for modals */
+    --transition-modal: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.4);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    /* Colors - Dark Mode ("Midnight Aurora") */
+    --bg-body: #0f172a;
+    --bg-gradient: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%), 
+                   radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
+    
+    /* Glass Material */
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+
+    --bg-light: rgba(30, 41, 59, 0.4); 
+    --bg-dark: #020617;      
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-light: rgba(255, 255, 255, 0.2);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+    --text-placeholder: #475569;
+    
+    /* Brand Gradients */
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+    --primary-blue: #6366f1;
+    --primary-blue-dark: #4f46e5;
+    --accent-cyan: #06b6d4;
+    
+    --header-bg: rgba(15, 23, 42, 0.8);
+    --clickable-has-video-text: #38bdf8;
+    
+    --modal-input-bg: rgba(2, 6, 23, 0.5);
+    --modal-input-border: rgba(255, 255, 255, 0.1);
+    
+    /* Action & Feedback Colors */
+    --green-vote: #10b981;
+    --red-vote: #ef4444;
+    --orange-feedback: #f97316;
+    --purple-multiple: #a855f7;
+    --selection-yellow: #eab308;
+    
+    --selection-glow: 0 0 15px rgba(234, 179, 8, 0.4);
+    --hover-bg: rgba(255, 255, 255, 0.07);
+}
+
+html[data-theme='light'] {
+    /* Colors - Light Mode ("Daylight Aurora") */
+    --bg-body: #f0f4f8;
+    --bg-gradient: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%), 
+                   radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
+
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-highlight: rgba(255, 255, 255, 0.8);
+
+    --bg-light: rgba(255, 255, 255, 0.8);
+    --bg-dark: #f8fafc;
+    
+    --border-color: #cbd5e1;
+    --border-light: #e2e8f0;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-placeholder: #94a3b8;
+    
+    --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #0891b2 100%);
+    --primary-blue: #4f46e5;
+    --primary-blue-dark: #4338ca;
+    
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --clickable-has-video-text: #0284c7;
+    
+    --modal-input-bg: #ffffff;
+    --modal-input-border: #cbd5e1;
+}
+
+html.accessibility-mode {
+    /* Enhanced Contrast */
+    --bg-body: #000000;
+    --bg-gradient: none;
+    --glass-bg: #1a1a1a;
+    --glass-border: #ffffff;
+    --bg-light: #121212;
+    --bg-dark: #000000;
+    --border-color: #666666;
+    --text-primary: #ffffff;
+    --text-secondary: #dddddd;
+    --text-tertiary: #bbbbbb;
+    --primary-blue: #4dabf7;
+    --primary-gradient: #4dabf7;
+    --header-bg: #000000;
+    --modal-input-bg: #1a1a1a;
+    --modal-input-border: #ffffff;
+    
+    --space-sm: 0.7rem;
+    --space-md: 1.3rem;
+    font-size: 110%;
+}

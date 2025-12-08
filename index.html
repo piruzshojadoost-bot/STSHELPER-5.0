@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Analysera svensk text och hitta teckenspråksvideor med hjälp av AI. Ett hjälpmedel för Svenskt teckenspråkslexikon.">
+    <title>STS-helper (BETA) | Lexikon med AI</title>
+    <!-- Puter.js loads dynamically in dev mode only -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/src/styles/variables.css">
+<link rel="stylesheet" href="/src/styles/base.css">
+<link rel="stylesheet" href="/src/styles/components.css">
+<link rel="stylesheet" href="/src/styles/style.css">
+<link rel="stylesheet" href="/src/styles/glosa-input.css">
+</head>
+<body class="transition-colors duration-300">
+    <div id="app-content">
+        <header class="fixed top-0 left-0 right-0 z-30 border-b backdrop-blur-md transition-colors app-header">
+            <div class="w-full header-container">
+                <div class="flex items-center justify-between header-inner">
+                    <!-- Left: Title + Status Icon -->
+                    <div class="flex items-center gap-3">
+                        <h1 class="text-xl font-bold bg-clip-text text-transparent app-title">STSHELPER</h1>
+                        <div id="lexicon-status-icon" style="width:20px;height:20px;display:flex;align-items:center;justify-content:center;"></div>
+                    </div>
+                    
+                    <!-- Right: QUOTA + Controls -->
+                    <div class="flex items-center gap-4">
+                        
+                        <div id="aiModeContainer" class="flex items-center gap-2 dev-only" style="display: none;">
+                            <span class="text-sm font-bold text-blue-300">AI</span>
+                            <div id="aiStatusIndicator" class="w-2 h-2 rounded-full bg-gray-500" style="transition: all 0.3s ease; margin-right: 4px;" title="AI status: Loading..."></div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="aiModeToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <button id="settingsBtn" class="p-2 hover:bg-white/10 rounded transition-colors relative" style="min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;" aria-label="Meny">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <!-- Settings Menu -->
+                            <div id="betaFeaturesMenu" class="hidden absolute top-12 right-0 bg-gray-900 rounded border border-gray-700 p-4 min-w-[360px] z-50 shadow-lg max-h-[70vh] overflow-y-auto">
+                                <h3 class="font-bold text-sm mb-3 text-white">Inställningar</h3>
+                                
+                                
+                                <!-- Dev Mode Toggle - Hidden by default, shown via ?dev=hemlig -->
+                                <div class="border-t border-gray-700 pt-3 mt-3 dev-only" style="display: none;">
+                                    <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-800 p-2 rounded transition-colors">
+                                        <input type="checkbox" id="devModeToggle" class="w-4 h-4 cursor-pointer">
+                                        <span class="text-sm font-medium">👨‍💻 Dev Mode</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto transition-all duration-300 flex flex-col main-container">
+             <section id="lexiconLoadingStatus" class="card hidden" style="display:none !important;">
+                <h3 class="text-lg font-bold mb-4">Laddar Lexikon...</h3>
+                <div class="space-y-4">
+                    <!-- Local Progress -->
+                    <div id="local-progress-container">
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="font-semibold text-gray-300">Lokalt baslexikon</label>
+                            <div class="flex items-center gap-2">
+                                <span id="local-progress-percentage" class="text-sm font-mono text-gray-400">0%</span>
+                                <div id="local-status-icon" class="status-icon"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar-wrapper">
+                            <div id="local-progress-bar-main" class="progress-bar-inner"></div>
+                        </div>
+                    </div>
+                    <!-- Online Progress -->
+                    <div id="online-progress-container">
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="font-semibold text-gray-300">Fullständigt online-lexikon</label>
+                             <div class="flex items-center gap-2">
+                                <span id="online-progress-percentage" class="text-sm font-mono text-gray-400">0%</span>
+                                <div id="online-status-icon" class="status-icon"></div>
+                            </div>
+                        </div>
+                         <div class="progress-bar-wrapper">
+                            <div id="online-progress-bar-main" class="progress-bar-inner"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="dual-input-container">
+                    <div class="input-pane input-pane-swedish">
+                        <div class="input-pane-label">Svenska</div>
+                        <div class="relative input-aurora-wrapper">
+                            <div id="originalTextDisplay" contenteditable="true" data-placeholder="Klistra in eller skriv din text här..."></div>
+                             <button type="button" id="generateRandomTextBtn" class="absolute text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-none rounded-full z-20 input-action-btn" data-tooltip-text="Generera exempel">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 20.25a4.5 4.5 0 005.657-5.657l-1.414-1.414a.75.75 0 00-1.06 0l-.172.172a.75.75 0 000 1.06l1.414 1.414a2.25 2.25 0 01-3.182 3.182l-1.414-1.414a.75.75 0 00-1.06 0l-.172.172a.75.75 0 000 1.06l1.414 1.414A4.5 4.5 0 0012 20.25z"></path></svg>
+                            </button>
+                            <button type="button" id="imageInputBtn" class="absolute text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-none rounded-full z-20 input-action-btn dev-only" style="display: none;" data-tooltip-text="Analysera bild">
+                               <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </button>
+                            <input type="file" id="imageInputFile" accept="image/*" class="hidden">
+                            <button type="button" id="voiceInputBtn" class="absolute text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-none rounded-full z-20 input-action-btn" data-tooltip-text="Tala in text">
+                               <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-pane input-pane-glosa hidden" id="glosaPane">
+                        <div class="input-pane-label">GLOSA <span id="glosaStatus" class="glosa-status"></span></div>
+                        <div class="glosa-preview-wrapper">
+                            <textarea id="glosaPreview" class="glosa-preview-text" placeholder="GLOSA visas här..."></textarea>
+                            <button id="saveGlosaBtn" class="save-glosa-btn hidden" title="Spara korrigering">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Spara
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-col items-center gap-4">
+                    <div class="action-buttons-grid w-full">
+                        <button id="convertBtn" class="btn btn-primary" disabled>
+                           <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <span>Sök</span>
+                        </button>
+                        <button id="glosaBtn" class="btn btn-primary">
+                           <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span>Glosa</span>
+                        </button>
+                        <button id="clearBtn" class="btn btn-secondary">
+                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m-7-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            <span>Rensa</span>
+                        </button>
+                    </div>
+                    <div id="analysisContainer" class="flex items-center gap-4 hidden">
+                        <div id="analysisStatus" class="text-sm font-semibold" style="color: var(--text-secondary);"></div>
+                        <button id="cancelSearchBtn" class="btn btn-secondary btn-sm hidden">Avbryt</button>
+                    </div>
+                    <button id="glosaFeedbackBtn" class="tool-btn hidden" title="Ge förslag på GLOSA">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- GLOSA Feedback Modal -->
+            <div id="glosaFeedbackModal" class="modal hidden">
+                <div class="absolute inset-0 bg-black/40" id="glosaFeedbackBackdrop"></div>
+                <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold">GLOSA Feedback</h3>
+                        <button id="glosaFeedbackClose" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm font-semibold text-gray-300 block mb-2">Svenska mening:</label>
+                            <div id="glosaFeedbackSwedish" class="bg-gray-900 p-3 rounded border border-gray-700 text-sm"></div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-semibold text-gray-300 block mb-2">AI:s GLOSA:</label>
+                            <div id="glosaFeedbackAI" class="bg-gray-900 p-3 rounded border border-gray-700 text-sm font-mono"></div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-semibold text-gray-300 block mb-2">Din GLOSA (redigera):</label>
+                            <textarea id="glosaFeedbackUser" class="w-full bg-gray-900 border border-gray-700 rounded p-3 text-sm font-mono text-white resize-none" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-gray-700">
+                            <button id="glosaFeedbackCopy" class="btn btn-primary w-full">Kopiera som feedback</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <section id="videoDisplayContainer" class="hidden">
+                <h2 id="wordInfoTitle" class="text-2xl font-bold mb-6" style="display:none;">Information för "<span id="currentWordName"></span>"</h2>
+                <div class="flex justify-end items-center mb-4">
+                    <div id="videoNavControls" class="flex items-center gap-2 hidden">
+                        <button id="prevSentenceBtn" class="btn btn-secondary btn-sm">&lt;</button>
+                        <span id="sentenceCounter" class="text-sm font-semibold w-28 text-center"></span>
+                        <button id="nextSentenceBtn" class="btn btn-secondary btn-sm">&gt;</button>
+                        <button id="showAllVideosBtn" class="btn btn-secondary btn-sm">Visa Alla</button>
+                         <button id="playAllBtn" class="btn btn-secondary btn-sm">Spela Alla</button>
+                    </div>
+                </div>
+                 <div class="hidden mb-4 card p-3" id="tools-and-actions-container">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-4">
+                            <div id="videoToolsPanel" class="flex items-center">
+                                <div class="flex items-center gap-2" id="tools-container">
+                                    <!-- Tool buttons will be injected here by JS -->
+                                </div>
+                            </div>
+                            <div id="multiSelectToolContainer" class="flex items-center gap-2 border-l border-gray-700 pl-4 ml-2">
+                                <!-- "Välj flera" button will be injected here -->
+                            </div>
+                            <div id="selectionActionContainer" class="flex items-center gap-2">
+                                <button id="mainFeedbackBtn" class="btn btn-secondary btn-sm" data-tooltip-text="Lämna en övergripande kommentar om hela meningen (när inget är valt)." disabled>Ge Feedback</button>
+                                <button id="thumbUpSelectionBtn" class="btn btn-secondary btn-sm hidden p-2" data-tooltip-text="Ge tumme upp till alla valda tecken.">
+                                     <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.085a2 2 0 00-1.736.93L5.5 8m7 2H5.5m0 0v8h2.15l2.15-6H5.5z"></path></svg>
+                                </button>
+                                <button id="thumbDownSelectionBtn" class="btn btn-secondary btn-sm hidden p-2" data-tooltip-text="Ge tumme ner till alla valda tecken.">
+                                    <svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.017c.163 0 .326.02.485-.06L17 4m-7 10v5a2 2 0 002 2h.085a2 2 0 001.736-.93l2.5-4.5m-7 4H18.5m0 0a2 2 0 002-2v-6.5m0 0L15.5 4"></path></svg>
+                                </button>
+                             </div>
+                             <div id="combinationActionContainer" class="hidden">
+                                 <!-- Combination button will be injected here -->
+                            </div>
+                        </div>
+                         <!-- Höger sida: Tom för att hålla allt till vänster -->
+                        <div></div>
+                    </div>
+                </div>
+                <div id="videoGrid"></div>
+                
+                <!-- NEW: Examples & Related Videos Section -->
+                <div id="examplesAndRelatedContainer" class="hidden mt-8">
+                    <!-- Examples Section -->
+                    <div id="examplesSection" class="hidden mb-8">
+                        <h3 class="text-lg font-bold mb-4 border-b border-gray-600 pb-2">Exempel-meningar</h3>
+                        <div id="examplesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                    
+                    <!-- Related Section -->
+                    <div id="relatedSection" class="hidden mb-8">
+                        <h3 class="text-lg font-bold mb-4 border-b border-gray-600 pb-2">Relaterade ord</h3>
+                        <div id="relatedGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <nav id="bottom-nav">
+             <div class="bottom-nav-menu">
+                <button id="navLexiconBtn" class="nav-btn" data-tooltip-text="Sök i hela lexikonet">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span class="nav-text">Sök</span>
+                </button>
+                <button id="feedbackNavBtn" class="nav-btn" data-tooltip-text="Se och skicka samlad feedback">
+                    <div class="relative">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <span id="feedbackBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                    </div>
+                    <span class="nav-text">Feedback</span>
+                </button>
+                <button id="askAiAboutStsBtn" class="nav-btn nav-btn-primary dev-only" style="display: none;" data-tooltip-text="Ställ frågor om teckenspråk till AI:n.">
+                    <span class="text-2xl font-bold leading-none">?</span>
+                    <span class="nav-text">Fråga AI</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Modals will be injected here by JavaScript -->
+
+    <!-- Message Box -->
+    <div id="messageBox" class="message-box" role="alert" aria-live="polite"></div>
+    
+    <div id="accessibilityToolbar" class="hidden"></div>
+    
+    <!-- Puter.js SDK loads dynamically in dev mode only -->
+    
+    <!-- Vite app loads AFTER Puter.js is ready -->
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

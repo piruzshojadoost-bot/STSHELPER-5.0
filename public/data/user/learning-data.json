@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0",
+  "lastUpdated": "2025-11-08T10:15:00.000Z",
+  "description": "Basfil för inlärningsdata. Användarspecifika anpassningar och permanent inlärning (i Dev-läge) sparas nu direkt i webbläsarens lokala lagring och slås samman med denna basdata vid start.",
+  "newWords": [
+    {
+      "lookupKey": "och",
+      "signs": [
+        {
+          "id": "01456",
+          "word": "och"
+        }
+      ]
+    },
+    {
+      "lookupKey": "promenera",
+      "signs": [
+        {
+          "id": "04240",
+          "word": "promenera"
+        }
+      ]
+    },
+    {
+      "lookupKey": "må",
+      "signs": [
+        {
+          "id": "00173",
+          "word": "må"
+        }
+      ]
+    },
+    {
+      "lookupKey": "idag",
+      "signs": [
+        {
+          "id": "04485",
+          "word": "i-dag"
+        }
+      ]
+    },
+    {
+      "lookupKey": "lära",
+      "signs": [
+        {
+          "id": "01260",
+          "word": "lära sig"
+        }
+      ]
+    },
+    {
+      "lookupKey": "det",
+      "signs": [
+        {
+          "id": "03690",
+          "word": "den"
+        }
+      ]
+    },
+    {
+      "lookupKey": "inte",
+      "signs": [
+        {
+          "id": "02875",
+          "word": "inte"
+        }
+      ]
+    },
+    {
+      "lookupKey": "typ",
+      "signs": [
+        {
+          "id": "04832",
+          "word": "typ"
+        }
+      ]
+    },
+    {
+      "lookupKey": "liksom",
+      "signs": [
+        {
+          "id": "03101",
+          "word": "liksom"
+        }
+      ]
+    },
+    {
+      "lookupKey": "kanske",
+      "signs": [
+        {
+          "id": "01844",
+          "word": "kanske"
+        }
+      ]
+    },
+    {
+      "lookupKey": "mycket",
+      "signs": [
+        {
+          "id": "01499",
+          "word": "mycket"
+        }
+      ]
+    },
+    {
+      "lookupKey": "knutby",
+      "signs": [
+        {
+          "id": "10665",
+          "word": "knut"
+        },
+        {
+          "id": "11251",
+          "word": "by"
+        }
+      ],
+      "isCompound": true
+    },
+    {
+      "lookupKey": "uppsala",
+      "signs": [
+        {
+          "id": "06552",
+          "word": "Uppsala"
+        }
+      ]
+    },
+    {
+      "lookupKey": "bli",
+      "signs": [
+        {
+          "id": "00063",
+          "word": "bli"
+        }
+      ]
+    },
+    {
+      "lookupKey": "lite",
+      "signs": [
+        {
+          "id": "03118",
+          "word": "lite"
+        }
+      ]
+    },
+    {
+      "lookupKey": "det",
+      "signs": [
+        {
+          "id": "03690",
+          "word": "den"
+        }
+      ]
+    },
+    {
+      "lookupKey": "inte",
+      "signs": [
+        {
+          "id": "02508",
+          "word": "inte"
+        }
+      ]
+    },
+    {
+      "lookupKey": "kanske",
+      "signs": [
+        {
+          "id": "02508",
+          "word": "kanske"
+        }
+      ]
+    },
+    {
+      "lookupKey": "ju",
+      "signs": [
+        {
+          "id": "01967",
+          "word": "ju"
+        }
+      ]
+    },
+    {
+      "lookupKey": "väl",
+      "signs": [
+        {
+          "id": "03167",
+          "word": "väl"
+        }
+      ]
+    },
+    {
+      "lookupKey": "liksom",
+      "signs": [
+        {
+          "id": "01350",
+          "word": "liksom"
+        }
+      ]
+    },
+    {
+      "lookupKey": "alltså",
+      "signs": [
+        {
+          "id": "00065",
+          "word": "alltså"
+        }
+      ]
+    },
+    {
+      "lookupKey": "men",
+      "signs": [
+        {
+          "id": "01420",
+          "word": "men"
+        }
+      ]
+    },
+    {
+      "lookupKey": "eller",
+      "signs": [
+        {
+          "id": "00560",
+          "word": "eller"
+        }
+      ]
+    }
+  ],
+  "modifications": {},
+  "assistantInstructions": [
+    {
+      "id": "quiz-link-format-preference",
+      "instruction": "Vid interaktiva frågor eller quiz om teckenalternativ, använd alltid direkta länkar till videofilerna (.mp4) istället för webbsidorna. Konstruera länken enligt formatet 'https://teckensprakslexikon.su.se/movies/xx/[ord]-[id]-tecken.mp4'."
+    }
+  ],
+  "homonymResolutions": {},
+  "learnedPreferences": {
+    "och": {
+      "01456": 1
+    },
+    "det": {
+      "03690": 999
+    },
+    "uppsala": {
+      "06552": 999
+    },
+    "bli": {
+      "00063": 999
+    }
+  },
+  "feedbackReports": {
+    "signFeedback": [],
+    "sentenceFeedback": [],
+    "negativeFeedback": [],
+    "positiveFeedback": [
+      {
+        "cardId": "card-5",
+        "signId": "03690",
+        "sign": {
+          "id": "03690",
+          "word": "den"
+        },
+        "originalWords": "det",
+        "count": 1
+      }
+    ]
+  },
+  "feedback": [
+    {
+      "type": "thumbs_down",
+      "word": "arbeta",
+      "id": "04750",
+      "comment": "Gammalt tecken",
+      "timestamp": "2025-12-04T11:53:07+01:00"
+    },
+    {
+      "type": "thumbs_up",
+      "word": "föredra",
+      "id": "02616",
+      "timestamp": "2025-12-04T00:37:49+01:00"
+    },
+    {
+      "type": "thumbs_up",
+      "word": "föredra",
+      "id": "02616",
+      "timestamp": "2025-12-04T00:37:49+01:00"
+    },
+    {
+      "type": "thumbs_up",
+      "word": "behöva",
+      "id": "04769",
+      "timestamp": "2025-12-04T00:37:49+01:00"
+    },
+    {
+      "type": "thumbs_up",
+      "word": "har gjort",
+      "id": "00699",
+      "timestamp": "2025-12-04T00:37:49+01:00"
+    },
+    {
+      "type": "thumbs_up",
+      "word": "har gjort",
+      "id": "00699",
+      "timestamp": "2025-12-04T00:37:49+01:00"
+    }
+  ]
+}

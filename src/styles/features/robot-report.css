@@ -1,0 +1,36 @@
+
+/* --- ROBOT TEST REPORT LAYOUT --- */
+#robotTestReportModal .report-summary {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+#robotTestReportModal .report-progress-container {
+    height: 1.25rem;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    margin-top: 0.75rem;
+    background-color: var(--bg-dark);
+}
+#robotTestReportModal .report-details {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: var(--space-sm); /* space for scrollbar */
+    margin-bottom: 1rem;
+}
+#robotTestReportModal .report-details summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+}
+#robotTestReportModal .log-item {
+    padding-left: 2.5rem; /* Indent log details */
+    margin: var(--space-xs) 0;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-left: 2px solid var(--border-color);
+    margin-left: 0.8rem;
+}

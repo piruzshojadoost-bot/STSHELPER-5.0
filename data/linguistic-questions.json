@@ -1,0 +1,99 @@
+[
+  {
+    "key": "gift_homonym",
+    "triggerWords": ["gift", "gifta"],
+    "title": "Fråga om ordet 'gift'",
+    "question": "Används helt olika tecken för <strong>'gift'</strong> (att vara gift) och <strong>'gift'</strong> (ett giftigt ämne)? Och finns det ett specifikt, separat tecken för själva handlingen, verbet 'att gifta sig'?",
+    "examples": [
+      "De har varit <strong>gifta</strong> i tio år.",
+      "Ormens <strong>gift</strong> är farligt."
+    ]
+  },
+  {
+    "key": "plan_homonym",
+    "triggerWords": ["plan", "flygplan", "planera", "planritning", "planlösning"],
+    "title": "Fråga om ordet 'plan'",
+    "question": "Ordet <strong>'plan'</strong> kan betyda ett flygplan, en yta/nivå, eller en avsikt/schema. Används helt olika tecken för dessa betydelser? Hur skiljer man dem åt i teckenspråk?",
+    "examples": [
+        "Jag ska ta ett <strong>plan</strong> till London.", 
+        "Huset har en öppen <strong>plan</strong>lösning.", 
+        "Vad är din <strong>plan</strong> för helgen?"
+    ]
+  },
+  {
+    "key": "verb_directionality",
+    "triggerWords": ["ge", "ger", "gav", "få", "får", "fick", "skicka", "ta emot"],
+    "title": "Fråga om riktningsverb",
+    "question": "Verb som <strong>'ge'</strong> och <strong>'få'</strong> ändrar ofta riktning i teckenspråk beroende på vem som gör vad mot vem. Är detta alltid fallet? Hur tecknar man 'jag ger dig' jämfört med 'du ger mig'?",
+    "examples": [
+        "Kan du <strong>ge</strong> mig boken?", 
+        "Jag ska <strong>skicka</strong> ett paket till dig.", 
+        "Jag vill inte <strong>få</strong> några fler räkningar."
+    ]
+  },
+  {
+    "key": "adjective_inflection",
+    "triggerWords": ["röd", "rött", "röda", "stor", "stort", "stora", "gul", "gult", "gula", "fin", "fint", "fina"],
+    "title": "Fråga om adjektiv",
+    "question": "På svenska böjs adjektiv (t.ex. <strong>röd, rött, röda</strong>). Förändras tecknet för adjektivet beroende på substantivet det beskriver, eller används samma grundtecken oavsett böjning?",
+    "examples": [
+        "En <strong>röd</strong> bil.", 
+        "Ett <strong>rött</strong> hus.", 
+        "Två <strong>röda</strong> bilar."
+    ]
+  },
+  {
+    "key": "temporal_adverbs",
+    "triggerWords": ["igår", "idag", "imorgon", "förrgår", "övermorgon", "nyss"],
+    "title": "Fråga om tidsuttryck",
+    "question": "Tidsord som <strong>'igår'</strong>, <strong>'idag'</strong> och <strong>'imorgon'</strong> placeras ofta på en tidslinje i teckenspråk. Används alltid denna tidslinje, eller kan man bara teckna ordet utan att placera det i rummet?",
+    "examples": [
+        "Vi ses <strong>imorgon</strong>.", 
+        "Jag var sjuk <strong>igår</strong>.", 
+        "<strong>Idag</strong> skiner solen."
+    ]
+  },
+  {
+    "key": "classifier_verbs",
+    "triggerWords": ["gå", "springa", "säga", "ge", "ta", "lägga", "ställa", "sätta"],
+    "title": "Fråga om klassificerande verb",
+    "question": "<strong>Klassificerande verb</strong> ändrar handform beroende på vad som gör handlingen. Till exempel, handformen för 'springa' skiljer sig om det är en person, ett djur eller ett fordon. Varför är detta viktigt?",
+    "examples": [
+        "En <strong>människa springer</strong>.",
+        "En <strong>hund springer</strong>.",
+        "En <strong>bil springar</strong> förbi."
+    ]
+  },
+  {
+    "key": "non_manual_markers",
+    "triggerWords": ["fråga", "förvånad", "ledsen", "glad", "arg", "rädd"],
+    "title": "Fråga om icke-manuella signaler",
+    "question": "Ansiktssignaler och huvudrörelser är lika viktiga som handtecknen. En <strong>frågande ansiktssignal</strong> kan förvandla ett påstående till en fråga. Hur ändrar detta meningens betydelse?",
+    "examples": [
+        "Du kommer <strong>[påstående]</strong>.",
+        "Du kommer <strong>[frågande ansiktssignal]</strong>?"
+    ]
+  },
+  {
+    "key": "spatial_role_shift",
+    "triggerWords": ["han", "hon", "det", "de", "honom", "henne"],
+    "title": "Fråga om rumlig roll-växling",
+    "question": "I teckenspråk kan man växla mellan olika 'roller' i rummet genom att peka på olika platser. Om jag etablerar att 'A' är här och 'B' är där, kan jag sedan visa vad de gör till varandra genom att peka på dessa platser. Förklara detta?",
+    "examples": [
+        "En person här <strong>[peka vänster]</strong>.",
+        "En annan här <strong>[peka höger]</strong>.",
+        "Person A ser Person B <strong>[peka från vänster till höger]</strong>."
+    ]
+  },
+  {
+    "key": "aspect_iteration",
+    "triggerWords": ["upprepa", "ofta", "alltid", "ibland", "aldrig"],
+    "title": "Fråga om aspektmarkering",
+    "question": "En <strong>upprepad rörelse</strong> betyder att handlingen gjordes flera gånger, medan en <strong>långsam rörelse</strong> betyder att det är en vana. En <strong>skarp rörelse</strong> visar att det är en slutförd handling. Kan du skilja mellan dessa?",
+    "examples": [
+        "Jag <strong>läser</strong> [skarp] = Jag läste.",
+        "Jag <strong>läser läser läser</strong> [upprepad] = Jag läser ofta.",
+        "Jag <strong>läser</strong> [långsam] = Jag brukar läsa."
+    ]
+  }
+]

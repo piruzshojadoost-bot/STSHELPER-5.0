@@ -1,0 +1,30 @@
+
+/* --- AI CHAT LAYOUT --- */
+#aiChatHistory {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md); /* Added gap for airiness */
+}
+.chat-bubble {
+    max-width: 85%;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-lg);
+    line-height: 1.5;
+}
+.chat-bubble-user {
+    align-self: flex-end;
+    border-bottom-right-radius: var(--border-radius-sm);
+}
+.chat-bubble-ai {
+    align-self: flex-start;
+    border-bottom-left-radius: var(--border-radius-sm);
+}
+.chat-bubble-ai.is-thinking::after {
+    content: '●';
+    animation: pulse 1.5s infinite;
+    margin-left: 0.5rem;
+}
+.chat-bubble code { 
+    background-color: color-mix(in srgb, var(--bg-dark) 50%, transparent); 
+    color: var(--selection-yellow); 
+}

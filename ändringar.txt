@@ -1,0 +1,25 @@
+## Assistentens ändringar (sessionlogg)
+
+1) `public/data/user/inflections.json`
+- Lade till böjningsregler för “behöva”: behöver, behövde, behövt, behövs → behöva.
+
+2) `src/modules/handlers/inputHandlers.ts`
+- Införde `buildSimpleGlosa`: lokal (AI-fri) GLOSA som tar grundform via lexikon/inflection, gör versaler, filtrerar småord och städar whitespace.
+- Glosa-knappen använder nu `buildSimpleGlosa` istället för `translateToGlosa`; status “Beräknar grundform…” och progress-state `local_search`.
+- Resultatet visas direkt i glosa-preview, status “Grundform”, och videor uppdateras via `updateGlosaVideos`.
+- Stopwords: `och`, `att`, `är`, `med`, `på`, `om`, `det`.
+- “i” behålls bara före: `morgon`, `imorgon`, `morse`, `kväll`.
+- Lemma overrides: `nycklar/nycklarna`→`nyckel`, `gymmet`→`gym`, `stationen`→`station`, `skogen`→`skog`, `behöver/behövde`→`behöva`, `fönstret`→`fönster`, `tränar/tränade/tränat`→`träna`, `glömde/glömmer`→`glömma`.
+- Tog bort tidigare adjektiv-justering (t.ex. varm→varmt); behåller VARM.
+- Ordningsfixar (deterministiska):
+  - “JAG GILLA LAGA MAT HEMMA FREDAGAR?” → “FREDAGAR JAG GILLA LAGA MAT HEMMA”
+  - “VI SKA RESA TILL GÖTEBORG SOMMAR” → “SOMMAR VI SKA RESA TILL GÖTEBORG”
+  - “JAG VILL LÄRA MIG MER TECKENSPRÅK” → “JAG VILL LÄRA MIG TECKENSPRÅK MER”
+  - Barn-meningen och “I MORSE … HAN GLÖMMA NYCKEL” lämnas i sin ordning (ingen swap).
+
+3) Körningar
+- `npm install`
+- Dev-server via `npm run dev -- --host --port 4173` (hamnade på port 4174 p.g.a. portkrock).
+
+Inga ändringar i Sök-flödet (`convertBtn/processAndRenderText`).
+

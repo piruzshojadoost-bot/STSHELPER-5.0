@@ -1,0 +1,13 @@
+# Online Lexicon Sources (Fallback URLs)
+# These are the Gist URLs used as fallback if offline files are not available
+
+https://gist.githubusercontent.com/piruzshojadoost-bot/b48b3821120fd6b56e3ee929c0f9fc24/raw/6025b0d401a1d580208849b62bb7030d2e26d211/1
+https://gist.githubusercontent.com/piruzshojadoost-bot/d9703e6bc919b14b77f957858f930f15/raw/4c71bedc135998a50e9eaee4a1e9f950b4bf0cb0/2
+https://gist.githubusercontent.com/piruzshojadoost-bot/bdfe8a5dad4367b3ea85fd81fce3525b/raw/28b840c1d33a59b8cf516b4962914541babe5a98/3
+https://gist.githubusercontent.com/piruzshojadoost-bot/21a9b60e6dcae7b29883d943af025fe0/raw/2df6b65934494a71804954148b4f1cd2d9681fa6/4
+https://gist.githubusercontent.com/piruzshojadoost-bot/af515a52e0e98d7cd49f511c78f5f039/raw/1221422e680ea194e16b0f01119584cb4a8ec982/5
+https://gist.githubusercontent.com/piruzshojadoost-bot/de746b18123cd668d766998ae4c1c856/raw/771dae32aca37e148e2b16aef0904cd88430e3bc/6
+https://gist.githubusercontent.com/piruzshojadoost-bot/cff170b7b45d859dbb2acf92ddcd45b7/raw/bf34e02a8723919784b1dcdb763f51b9f39631fd/7
+https://gist.githubusercontent.com/piruzshojadoost-bot/51d3a6137887808633d8de03d044409f/raw/0ffe263b55029b4e3157cf82aefc317ef92b041d/8
+https://gist.githubusercontent.com/piruzshojadoost-bot/99cba6e622a31061bea08408d033ac3c/raw/f6180565532e41377bca85fde5ca08ea29ce06eb/9
+https://gist.githubusercontent.com/piruzshojadoost-bot/ef70c4798aef4656c02fc3fb36666dac/raw/f3ef150c6bbdfbb8250deea17d1be16c9cf85e1b/10

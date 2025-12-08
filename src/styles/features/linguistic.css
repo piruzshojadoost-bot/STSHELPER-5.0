@@ -1,0 +1,24 @@
+
+/* --- LINGUISTIC QUESTION CARD LAYOUT --- */
+#linguisticQuestionContainer .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+#linguisticQuestionContainer .card-body ul {
+    list-style-type: none; /* remove default list-style */
+    padding-left: 0;
+    margin: var(--space-md) 0;
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+#linguisticQuestionContainer .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}

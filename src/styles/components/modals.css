@@ -1,0 +1,56 @@
+
+/* --- MODALS & OVERLAYS --- REFINED */
+.modal {
+    position: fixed; inset: 0; z-index: 50; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding: var(--space-md);
+    visibility: hidden;
+}
+.modal.show { visibility: visible; }
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 700px; 
+    min-width: 300px;
+    max-height: 90vh; 
+    overflow-y: auto;
+    position: relative; 
+    padding: var(--space-lg) var(--space-xl); /* Generous padding */
+    border-radius: var(--border-radius-lg);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem; 
+    height: 2.75rem;
+    font-size: 1.5rem;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+#lexiconSuggestions, .suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: -1px; /* Overlap border */
+}
+
+#tooltip {
+    position: fixed; 
+    z-index: 10000; 
+    visibility: hidden; 
+    pointer-events: none;
+}
