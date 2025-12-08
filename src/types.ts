@@ -102,6 +102,8 @@ export type WordMapEntry = {
     related?: RelatedSignInfo[];
     gloss?: string;
     isEnriched?: boolean;
+    isGenuine?: boolean;
+    genuineTeckenId?: string;
 };
 
 // --- FEEDBACK & LEARNING TYPES ---

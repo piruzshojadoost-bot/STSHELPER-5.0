@@ -132,6 +132,14 @@ class GenuinaTeckenService {
     }
 
     /**
+     * Hitta genuint tecken från fras/text (exakt match, case-insensitive)
+     */
+    find(phrase: string): GenuintTecken | undefined {
+        const lowerPhrase = phrase.toLowerCase().trim();
+        return this.genuinaTecken.find(t => t.tecken.toLowerCase() === lowerPhrase);
+    }
+
+    /**
      * Sök genuina tecken (för modal)
      */
     search(query: string): GenuintTecken[] {

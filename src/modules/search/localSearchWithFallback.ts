@@ -286,6 +286,9 @@ export async function doLocalSearch(text: string): Promise<WordMapEntry[]> {
     // 2. Normalisera skiljetecken (mellanslag före/efter)
     text = text.replace(/\s*([.,!?;:])\s*/g, '$1 ').trim();
     
+    // Importera genuina tecken service
+    const { genuinaTeckenService } = await import('../genuina/genuinaTeckenService');
+    
     const out: WordMapEntry[] = [];
     const tokensAndDelimiters = text.split(/(\s+|[.,!?;:"()]+)/g).filter(Boolean);
     const MAX_PHRASE_LENGTH = 4; // Max number of words to check for a phrase
@@ -315,6 +318,31 @@ export async function doLocalSearch(text: string): Promise<WordMapEntry[]> {
             }
             
             const phraseKey = normalizeForLookup(phraseTokens.join(' '));
+            
+            // 🌟 NYTT: Kolla först om det är ett genuint tecken
+            const genuintTecken = genuinaTeckenService.find(phraseTokens.join(' '));
+            if (genuintTecken && genuinaTeckenService.isLoaded()) {
+                const originalPhrase = tokensAndDelimiters.slice(i, i + requiredTokensCount).join('');
+                
+                // Använd tecken-ID från genuint tecken
+                out.push({
+                    original: originalPhrase,
+                    base: phraseKey,
+                    isWord: true,
+                    pos: '',
+                    signs: [{ id: genuintTecken.id, word: genuintTecken.tecken }],
+                    isCompound: false,
+                    rationale: `Genuint tecken: ${genuintTecken.tecken}`,
+                    isGenuine: true, // Flagga för att visa badge
+                    genuineTeckenId: genuintTecken.id
+                });
+
+                i += requiredTokensCount;
+                matchFound = true;
+                break;
+            }
+            
+            // Annars kolla vanlig lexikon-match
             const signs = getSignsForKey(phraseKey);
             
             if (signs) {
