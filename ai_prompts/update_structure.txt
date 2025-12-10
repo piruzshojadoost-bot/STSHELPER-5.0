@@ -1,27 +1,52 @@
+
 /workspaces/STSHELPER-5.0
-├── .ai_project_memory.txt
 ├── .gitignore
 ├── README.md
 ├── ai_prompts/
-│   ├── chat.txt
 │   ├── mega_prompt.txt
 │   ├── safe_delete.txt
-│   ├── test_prompt.txt
 │   └── update_structure.txt
 ├── data/
 │   ├── glosa/
 │   │   ├── god_glossing.json
 │   │   ├── inflections.json
-│   │   └── genuina_tecken.json
-│   │   ├── lexikon/
-│   │   └── user/
 │   ├── linguistic-questions.json
 │   ├── user/
-│   │   └── (user files)
 │   └── word-filters.json
+├── eslint.config.js
+├── index.html
+├── index.tsx
+├── package-lock.json
+├── package.json
 ├── public/
 │   └── data/
-│       └── (public data files)
+│       ├── genuina_tecken.json
+│       ├── lexikon/
+│       │   ├── offline/
+│       │   │   ├── full/
+│       │   │   │   ├── lexikon_sammanslagen_del_1.json
+│       │   │   │   ├── lexikon_sammanslagen_del_10.json
+│       │   │   │   ├── lexikon_sammanslagen_del_2.json
+│       │   │   │   ├── lexikon_sammanslagen_del_3.json
+│       │   │   │   ├── lexikon_sammanslagen_del_4.json
+│       │   │   │   ├── lexikon_sammanslagen_del_5.json
+│       │   │   │   ├── lexikon_sammanslagen_del_6.json
+│       │   │   │   ├── lexikon_sammanslagen_del_7.json
+│       │   │   │   ├── lexikon_sammanslagen_del_8.json
+│       │   │   │   ├── lexikon_sammanslagen_del_9.json
+│       │   │   ├── snabb/
+│       │   │   │   ├── lexikon_sammanslagen_del_1.json
+│       │   │   │   ├── lexikon_sammanslagen_del_2.json
+│       │   │   │   ├── lexikon_sammanslagen_del_3.json
+│       │   │   │   ├── lexikon_sammanslagen_del_4.json
+│       │   │   │   ├── lexikon_sammanslagen_del_5.json
+│       │   │   │   ├── lexikon_sammanslagen_del_6.json
+│       │   │   ├── online/
+│       │   │   │   └── SOURCES.txt
+│       ├── user/
+│       │   ├── aliases.json
+│       │   ├── inflections.json
+│       │   └── learning-data.json
 ├── src/
 │   ├── App.tsx
 │   ├── components/
@@ -83,11 +108,17 @@
 │   │       └── tooltip.ts
 │   ├── services/
 │   │   ├── data/
+│   │   │   └── lexiconUrlService.ts
 │   │   ├── lexiconStatusHeader.ts
 │   │   ├── media/
+│   │   │   └── videoService.ts
 │   │   ├── quotaTracker.ts
 │   │   ├── system/
+│   │   │   └── devModeService.ts
 │   │   └── ui/
+│   │       ├── feedbackNotificationService.ts
+│   │       ├── notificationService.ts
+│   │       └── videoGridSelectionService.ts
 │   ├── state.ts
 │   ├── style.css
 │   ├── styles/
@@ -114,16 +145,13 @@
 │   ├── types.ts
 │   ├── ui.ts
 │   ├── utils/
+│   │   ├── sorting.ts
+│   │   └── textUtils.ts
 │   ├── utils.ts
 │   └── vite-env.d.ts
-├── eslint.config.js
-├── index.html
-├── index.tsx
-├── package-lock.json
-├── package.json
 ├── start_ai_diff.sh
 ├── tsconfig.json
 ├── vite.config.ts
 ├── ändringar.txt
 └── trash/
-    └── (deleted files)
+    └── replit.md
