@@ -1,0 +1,10 @@
+safe_delete.txt
+
+Säker borttagning av filer och mappar:
+1. Kontrollera att filen/mappen finns på disken och inte är låst eller används av ett annat program.
+2. Ta bort filen/mappen direkt från disken.
+3. Uppdatera .ai_project_memory.txt så att borttagna filer/mappar tas bort från minnet.
+4. Visa diff eller lista över borttagna filer/mappar innan borttagning.
+5. Bekräfta alltid med:
+	🟢 Filer/mappar borttagna och projektminnet uppdaterat. Totalt X filer, Y mappar.
+6. Om borttagning misslyckas, informera användaren och ge instruktion om manuell borttagning.

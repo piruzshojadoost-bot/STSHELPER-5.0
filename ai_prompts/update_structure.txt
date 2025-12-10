@@ -1,0 +1,13 @@
+update_structure.txt
+
+Regler för uppdatering av projektstruktur:
+1. När projektstrukturen ändras (nya eller borttagna filer/mappar), uppdatera .ai_project_memory.txt automatiskt så att den speglar den faktiska strukturen.
+2. Visa alltid en diff och sammanfattning av ändringarna innan du skriver till filsystemet.
+3. Lista alltid:
+	- Nya filer/mappar
+	- Borttagna filer/mappar
+4. Logga alla strukturändringar i en separat fil, t.ex. structure_changes.log.
+5. Bekräfta alltid med:
+	🟢 Projektstrukturen är uppdaterad. Totalt X filer, Y mappar.
+6. Ignorera node_modules, .local och onödiga-filer vid uppdatering.
+7. Informera användaren om större förändringar eller om något misslyckas.
