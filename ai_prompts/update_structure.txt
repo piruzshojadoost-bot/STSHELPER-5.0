@@ -1,13 +1,129 @@
-update_structure.txt
-
-Regler för uppdatering av projektstruktur:
-1. När projektstrukturen ändras (nya eller borttagna filer/mappar), uppdatera .ai_project_memory.txt automatiskt så att den speglar den faktiska strukturen.
-2. Visa alltid en diff och sammanfattning av ändringarna innan du skriver till filsystemet.
-3. Lista alltid:
-	- Nya filer/mappar
-	- Borttagna filer/mappar
-4. Logga alla strukturändringar i en separat fil, t.ex. structure_changes.log.
-5. Bekräfta alltid med:
-	🟢 Projektstrukturen är uppdaterad. Totalt X filer, Y mappar.
-6. Ignorera node_modules, .local och onödiga-filer vid uppdatering.
-7. Informera användaren om större förändringar eller om något misslyckas.
+/workspaces/STSHELPER-5.0
+├── .ai_project_memory.txt
+├── .gitignore
+├── README.md
+├── ai_prompts/
+│   ├── chat.txt
+│   ├── mega_prompt.txt
+│   ├── safe_delete.txt
+│   ├── test_prompt.txt
+│   └── update_structure.txt
+├── data/
+│   ├── glosa/
+│   │   ├── god_glossing.json
+│   │   ├── inflections.json
+│   │   └── genuina_tecken.json
+│   │   ├── lexikon/
+│   │   └── user/
+│   ├── linguistic-questions.json
+│   ├── user/
+│   │   └── (user files)
+│   └── word-filters.json
+├── public/
+│   └── data/
+│       └── (public data files)
+├── src/
+│   ├── App.tsx
+│   ├── components/
+│   │   ├── GlosaSearch.tsx
+│   │   ├── Loader.tsx
+│   │   ├── VideoGrid.tsx
+│   │   ├── chat.ts
+│   │   ├── modals/
+│   │   │   └── ModalSystem.ts
+│   │   └── modals.ts
+│   ├── hooks/
+│   │   ├── useAI.ts
+│   │   ├── useDataEnrichment.ts
+│   │   ├── useGrammarRules.ts
+│   │   ├── useLexicon.ts
+│   │   └── useSpeechRecognition.ts
+│   ├── modules/
+│   │   ├── cloud/
+│   │   │   └── puterCloudSync.ts
+│   │   ├── core/
+│   │   │   ├── init.ts
+│   │   │   └── reset.ts
+│   │   ├── dom/
+│   │   │   └── elements.ts
+│   │   ├── features/
+│   │   │   ├── alphabetPlayer.ts
+│   │   │   ├── generator.ts
+│   │   │   ├── glossingEngine.ts
+│   │   │   ├── grammar.ts
+│   │   │   ├── playback.ts
+│   │   │   ├── recorder.ts
+│   │   │   ├── renderGlosses.ts
+│   │   │   ├── search.ts
+│   │   │   ├── signDetails.ts
+│   │   │   └── wordInfo.ts
+│   │   ├── feedback/
+│   │   │   ├── feedbackCollector.ts
+│   │   │   └── feedbackPreviewModal.ts
+│   │   ├── genuina/
+│   │   │   ├── genuinaHandlers.ts
+│   │   │   ├── genuinaTeckenService.ts
+│   │   │   └── phraseHighlighter.ts
+│   │   ├── handlers/
+│   │   │   ├── inputHandlers.ts
+│   │   │   ├── navHandlers.ts
+│   │   │   └── systemHandlers.ts
+│   │   ├── logic/
+│   │   │   └── textProcessing.ts
+│   │   ├── search/
+│   │   │   └── localSearchWithFallback.ts
+│   │   ├── sts-glossing/
+│   │   │   ├── aiLearningSystem.ts
+│   │   │   └── offlineGlosaEngine.ts
+│   │   └── ui/
+│   │       ├── modalTemplates.ts
+│   │       ├── progress.ts
+│   │       ├── textDisplay.ts
+│   │       ├── theme.ts
+│   │       └── tooltip.ts
+│   ├── services/
+│   │   ├── data/
+│   │   ├── lexiconStatusHeader.ts
+│   │   ├── media/
+│   │   ├── quotaTracker.ts
+│   │   ├── system/
+│   │   └── ui/
+│   ├── state.ts
+│   ├── style.css
+│   ├── styles/
+│   │   ├── base.css
+│   │   ├── components/
+│   │   │   ├── cards.css
+│   │   │   ├── chat.css
+│   │   │   ├── modals.css
+│   │   │   └── navigation.css
+│   │   ├── components.css
+│   │   ├── core/
+│   │   │   ├── grids.css
+│   │   │   └── layout.css
+│   │   ├── features/
+│   │   │   ├── grammar.css
+│   │   │   ├── linguistic.css
+│   │   │   └── robot-report.css
+│   │   ├── genuina-tecken.css
+│   │   ├── glosa-input.css
+│   │   ├── style.css
+│   │   ├── ui/
+│   │   │   └── progress.css
+│   │   └── variables.css
+│   ├── types.ts
+│   ├── ui.ts
+│   ├── utils/
+│   ├── utils.ts
+│   └── vite-env.d.ts
+├── eslint.config.js
+├── index.html
+├── index.tsx
+├── package-lock.json
+├── package.json
+├── start_ai_diff.sh
+├── tsconfig.json
+├── vite.config.ts
+├── ändringar.txt
+└── trash/
+    └── (deleted files)
