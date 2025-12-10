@@ -2,7 +2,7 @@
 
 import { genuinaTeckenService, type GenuintTecken } from './genuinaTeckenService';
 import { PhraseHighlighter } from './phraseHighlighter';
-import { originalTextDisplay } from '../../ui';
+import { originalTextDisplay, buildVideoUrl } from '../../ui';
 
 let highlighter: PhraseHighlighter | null = null;
 let currentTooltip: HTMLElement | null = null;
@@ -236,22 +236,19 @@ function renderList(query: string) {
     listContainer.querySelectorAll('.genuine-item').forEach(item => {
         item.addEventListener('click', () => {
             const phrase = (item as HTMLElement).dataset.phrase;
-            if (phrase && originalTextDisplay) {
-                // Infoga frasen i textfältet
-                const currentText = originalTextDisplay.textContent || '';
-                const newText = currentText ? `${currentText} ${phrase}` : phrase;
-                originalTextDisplay.textContent = newText;
-                originalTextDisplay.classList.add('text-area-editable');
-                originalTextDisplay.classList.remove('text-placeholder');
-                
-                // Trigger input event
-                originalTextDisplay.dispatchEvent(new Event('input', { bubbles: true }));
-                
-                // Highlight
-                highlighter?.highlight(true);
-                
-                // Stäng modal
-                document.getElementById('genuinaTeckenModal')?.classList.add('hidden');
+            const teckenId = (item as HTMLElement).dataset.teckenId;
+            console.log('Genuine item clicked:', { teckenId, phrase });
+            let videoContainer = item.querySelector('.genuine-video-container');
+            if (videoContainer) {
+                // Om video redan visas, ta bort den
+                videoContainer.remove();
+            } else {
+                // Annars visa video
+                const videoUrl = buildVideoUrl(teckenId, phrase, 'tecken', undefined, true);
+                videoContainer = document.createElement('div');
+                videoContainer.className = 'genuine-video-container';
+                videoContainer.innerHTML = `<video src="${videoUrl}" controls autoplay style="max-width:220px; margin-left:12px; vertical-align:middle;"></video>`;
+                item.appendChild(videoContainer);
             }
         });
     });
