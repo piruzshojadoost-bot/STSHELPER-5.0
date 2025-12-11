@@ -317,22 +317,27 @@ export class OfflineGlosaEngine {
       return lower.toUpperCase();
     }
 
-    // 🆕 AUTO-VERB-BÖJNING: Svenska verb slutar ofta på -ar, -er, -ir
+    // 🆕 AUTO-VERB-BÖJNING: Svenska verb slutar ofta på -ar, -er, -ir, -r (presens)
     // Ta bort dessa ändelser för att få grundform
     let lemma = lower;
     
-    if (lower.endsWith('ar') && lower.length > 2) {
-      // "gillar" → "gilla", "älskar" → "älska", "sjunger" → "sjunga"
-      lemma = lower.slice(0, -2) + 'a';
-    } else if (lower.endsWith('er') && lower.length > 2) {
-      // "tänker" → "tänka", "känner" → "känna", "springer" → "springa"
-      lemma = lower.slice(0, -2) + 'a';
-    } else if (lower.endsWith('ir') && lower.length > 2) {
-      // "kör" → "köra" (mindre vanligt, men finns)
-      lemma = lower.slice(0, -2) + 'a';
-    } else if (lower.endsWith('t') && lower.length > 2 && !lower.endsWith('nt')) {
-      // 🆕 ADJEKTIV I NEUTRUM SINGULAR: Ta bort -t
-      // "viktigt" → "viktig", "tydligt" → "tydlig", "smålt" → "småla"
+    // Presens -ar (grupp 1 verb): "gillar" → "gilla", "älskar" → "älska"
+    if (lower.endsWith('ar') && lower.length > 3) {
+      lemma = lower.slice(0, -1); // "gillar" → "gilla"
+    } 
+    // Presens -er (grupp 2-3 verb): "tänker" → "tänka", "känner" → "känna"
+    else if (lower.endsWith('er') && lower.length > 3) {
+      lemma = lower.slice(0, -2) + 'a'; // "tänker" → "tänka"
+    }
+    // Presens -r (grupp 4 verb, stark): "förstår" → "förstå", "går" → "gå", "står" → "stå"
+    else if (lower.endsWith('r') && lower.length > 2 && !lower.endsWith('ar') && !lower.endsWith('er') && !lower.endsWith('or')) {
+      // Kolla om det är ett känt verb som slutar på -r i presens
+      const potentialInfinitive = lower.slice(0, -1);
+      // "förstår" → "förstå", "går" → "gå", "står" → "stå", "mår" → "må"
+      lemma = potentialInfinitive;
+    }
+    // Adjektiv i neutrum singular: Ta bort -t
+    else if (lower.endsWith('t') && lower.length > 2 && !lower.endsWith('nt') && !lower.endsWith('tt')) {
       lemma = lower.slice(0, -1);
     }
 

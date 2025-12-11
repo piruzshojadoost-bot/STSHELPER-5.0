@@ -192,9 +192,13 @@ export async function findCandidatesForToken(tokenRaw: string): Promise<Candidat
           localSearchCache.set(token, result);
           return result;
         }
+        // NYTT: Om lemma finns men inget tecken hittades, returnera ändå lemma (förhindrar felaktig orddelning)
+        // T.ex. "förstår" → "förstå" även om "förstå" inte finns i lexikon ännu
+        const result = { signs: null, base: lemma, method: `Lemma (inflections, inget tecken) ${checkToken}→${lemma}`, isCompound: false };
+        localSearchCache.set(token, result);
+        return result;
       }
     }
-    // If lemma exists but not in lexicon, continue local rules (do not auto-replace)
   }
 
   // 2.5️⃣ Sign language gloss variations (teckenspråks-varianter)
@@ -233,30 +237,34 @@ export async function findCandidatesForToken(tokenRaw: string): Promise<Candidat
   }
 
   // 5️⃣ Sammansatta ord (split heuristics) — try longest left part first
-  // We'll try split positions from longest left to shortest left but keep both parts >=2
-  for (let i = token.length - 2; i >= 2; i--) {
-    const left = token.slice(0, i);
-    const right = token.slice(i);
-    if (left.length < 2 || right.length < 2) continue;
+  // VIKTIGT: Hoppa över orddelning om ordet finns i inflectionMap (t.ex. "förstår" ska INTE bli "först+år")
+  const hasInflection = inflectionMap && (inflectionMap.has(token) || inflectionMap.has(token.toLowerCase()));
+  if (!hasInflection) {
+    // We'll try split positions from longest left to shortest left but keep both parts >=2
+    for (let i = token.length - 2; i >= 2; i--) {
+      const left = token.slice(0, i);
+      const right = token.slice(i);
+      if (left.length < 2 || right.length < 2) continue;
 
-    // Check if both parts exist as keys
-    const leftMatch = getSignsForKey(left);
-    const rightMatch = getSignsForKey(right);
-    
-    if (leftMatch && rightMatch) {
-        // Sortera båda delarna baserat på preferenser
-        const sortedLeft = sortSignsByPreference(leftMatch.signs, left);
-        const sortedRight = sortSignsByPreference(rightMatch.signs, right);
-        // Return combination (both parts)
-        return { 
-            signs: [...sortedLeft, ...sortedRight], 
-            base: `${left}+${right}`, 
-            method: 'Sammansatt ord', 
-            isCompound: true, 
-            parts: [left, right] 
-        };
+      // Check if both parts exist as keys
+      const leftMatch = getSignsForKey(left);
+      const rightMatch = getSignsForKey(right);
+      
+      if (leftMatch && rightMatch) {
+          // Sortera båda delarna baserat på preferenser
+          const sortedLeft = sortSignsByPreference(leftMatch.signs, left);
+          const sortedRight = sortSignsByPreference(rightMatch.signs, right);
+          // Return combination (both parts)
+          return { 
+              signs: [...sortedLeft, ...sortedRight], 
+              base: `${left}+${right}`, 
+              method: 'Sammansatt ord', 
+              isCompound: true, 
+              parts: [left, right] 
+          };
+      }
     }
-}
+  }
 
 
   // 6️⃣ Fuzzy DISABLED - Testing without fuzzy matching for performance
