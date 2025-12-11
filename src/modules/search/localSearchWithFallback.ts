@@ -327,12 +327,38 @@ export async function doLocalSearch(text: string): Promise<WordMapEntry[]> {
             
             const phraseKey = normalizeForLookup(phraseTokens.join(' '));
             
-            // 🌟 NYTT: Kolla först om det är ett genuint tecken
+            // 🔧 PRIORITET: Kolla lexikonet FÖRST (har alla video-IDn)
+            const lexikonSigns = getSignsForKey(phraseKey);
+            
+            if (lexikonSigns) {
+                const originalPhrase = tokensAndDelimiters.slice(i, i + requiredTokensCount).join('');
+                
+                // Kolla även om det är ett genuint tecken (för badge/flagga)
+                const genuintTecken = genuinaTeckenService.find(phraseTokens.join(' '));
+                const isGenuine = genuintTecken && genuinaTeckenService.isLoaded();
+                
+                out.push({
+                    original: originalPhrase,
+                    base: phraseKey,
+                    isWord: true,
+                    pos: '',
+                    signs: lexikonSigns.signs,
+                    isCompound: lexikonSigns.isCompound || false,
+                    rationale: isGenuine ? `Genuint tecken + lexikon: ${phraseKey}` : `Frasmatch (${phraseKey})`,
+                    isGenuine: isGenuine,
+                    genuineTeckenId: genuintTecken?.id
+                });
+
+                i += requiredTokensCount;
+                matchFound = true;
+                break;
+            }
+            
+            // Om lexikonet inte har frasen, kolla genuina tecken som fallback
             const genuintTecken = genuinaTeckenService.find(phraseTokens.join(' '));
             if (genuintTecken && genuinaTeckenService.isLoaded()) {
                 const originalPhrase = tokensAndDelimiters.slice(i, i + requiredTokensCount).join('');
                 
-                // Använd tecken-ID från genuint tecken
                 out.push({
                     original: originalPhrase,
                     base: phraseKey,
@@ -341,7 +367,7 @@ export async function doLocalSearch(text: string): Promise<WordMapEntry[]> {
                     signs: [{ id: genuintTecken.id, word: genuintTecken.tecken }],
                     isCompound: false,
                     rationale: `Genuint tecken: ${genuintTecken.tecken}`,
-                    isGenuine: true, // Flagga för att visa badge
+                    isGenuine: true,
                     genuineTeckenId: genuintTecken.id
                 });
 
@@ -350,26 +376,6 @@ export async function doLocalSearch(text: string): Promise<WordMapEntry[]> {
                 break;
             }
             
-            // Annars kolla vanlig lexikon-match
-            const signs = getSignsForKey(phraseKey);
-            
-            if (signs) {
-                const originalPhrase = tokensAndDelimiters.slice(i, i + requiredTokensCount).join('');
-                
-                out.push({
-                    original: originalPhrase,
-                    base: phraseKey,
-                    isWord: true,
-                    pos: '',
-                    signs: signs.signs,
-                    isCompound: signs.isCompound || false,
-                    rationale: `Frasmatch (${phraseKey})`
-                });
-
-                i += requiredTokensCount;
-                matchFound = true;
-                break;
-            }
         }
 
         // If no multi-word phrase was found, process the current single token.
