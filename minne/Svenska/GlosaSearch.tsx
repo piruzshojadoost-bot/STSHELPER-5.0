@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Loader from './Loader';
+// Kopia av GlosaSearch.tsx från src/components
+// Hanterar svenska input, sökord och sökfunktion
 
-// Ladda in genuina_tecken.json (kräver att du använder t.ex. import assertion eller fetch beroende på setup)
-// Här används dynamisk import för enkelhet
+import React, { useState } from 'react';
+import Loader from '../../src/components/Loader';
 
 const GlosaSearch = () => {
   const [input, setInput] = useState('');
@@ -10,15 +10,15 @@ const GlosaSearch = () => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [glosaResult, setGlosaResult] = useState('');
-  // Glosa-knappens logik
   const [debugInput, setDebugInput] = useState('');
+
   const handleGlosa = async () => {
     setIsLoading(true);
     setGlosaResult('');
     setError('');
-    setDebugInput(input); // Spara vad som skickas till glossningsmotorn
+    setDebugInput(input);
     try {
-      const { offlineEngine } = await import('../modules/sts-glossing/offlineGlosaEngine');
+      const { offlineEngine } = await import('../../src/modules/sts-glossing/offlineGlosaEngine');
       if (offlineEngine.initializeLists) {
         await offlineEngine.initializeLists();
       }
@@ -30,31 +30,12 @@ const GlosaSearch = () => {
     setIsLoading(false);
   };
 
-  // Sökfunktion kopplad till offline lexikon och glossningsmotor
+  // Sökfunktion kan anpassas eller lämnas tom om lexikon ej behövs
   const handleSearch = async () => {
     setIsLoading(true);
     setError('');
     setResult(null);
-    try {
-      const { offlineEngine } = await import('../modules/sts-glossing/offlineGlosaEngine');
-      if (offlineEngine.initializeLists) {
-        await offlineEngine.initializeLists();
-      }
-      // Lemmatize input
-      const lemmaInput = offlineEngine.lemmatizeWord ? offlineEngine.lemmatizeWord(input) : input;
-      // Sök i ALLA lexikonfiler del_1-6
-      const lexFiles = [1,2,3,4,5,6].map(n => `/data/lexikon/offline/snabb/lexikon_sammanslagen_del_${n}.json`);
-      let match = null;
-      for (const file of lexFiles) {
-        const lexData = await fetch(file).then(res => res.json());
-        match = lexData.find(entry => entry.word && entry.word.toLowerCase() === lemmaInput.toLowerCase());
-        if (match) break;
-      }
-      setResult(match || null);
-      if (!match) setError('Ingen träff i lexikon.');
-    } catch (e) {
-      setError('Fel vid sökning.');
-    }
+    // Här kan du lägga till söklogik om du vill
     setIsLoading(false);
   };
 
@@ -79,14 +60,8 @@ const GlosaSearch = () => {
                 ID: {result.id}
               </div>
             )}
-            {/* Visa video om id finns */}
-            {result.id && (
-              <video src={`https://teckensprakslexikon.su.se/movies/${result.id.substring(0,2)}/180x180/${result.word}-${result.id}-tecken.mp4`} controls style={{ marginTop: 16, maxWidth: '100%' }} />
-            )}
           </div>
         )}
-        {/* Visa glossningsresultat */}
-        {/* Debug: visa input som skickas till glossningsmotorn */}
         {debugInput && !isLoading && (
           <div style={{ marginTop: 8, color: '#888', fontSize: '0.9em' }}>
             <div><b>Debug input till glossning:</b> "{debugInput}"</div>

@@ -548,7 +548,9 @@ export function createInteractiveCardElement(
     const videoPlayer = document.createElement('video');
     videoPlayer.className = 'video-card-player';
     // Use data-src for lazy loading - observer will set src when visible
-    videoPlayer.dataset.src = buildVideoUrl(primarySign.id, primarySign.word);
+    const videoUrl = buildVideoUrl(primarySign.id, primarySign.word);
+    console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', primarySign.id, 'word:', primarySign.word);
+    videoPlayer.dataset.src = videoUrl;
     videoPlayer.muted = true;
     videoPlayer.playsInline = true;
     videoPlayer.loop = !isCompound; // Don't loop if compound word
@@ -573,7 +575,9 @@ export function createInteractiveCardElement(
             currentVariantIndex = (currentVariantIndex - 1 + signs.length) % signs.length;
         }
         const newSign = signs[currentVariantIndex];
-        videoPlayer.src = buildVideoUrl(newSign.id, newSign.word);
+        const videoUrl = buildVideoUrl(newSign.id, newSign.word);
+        console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', newSign.id, 'word:', newSign.word);
+        videoPlayer.src = videoUrl;
         updateVariantCounter();
         videoPlayer.play().catch(e => console.warn("Variant play failed:", e));
         // Save current variant index in cardIdDataMap so feedback uses correct sign
@@ -657,7 +661,9 @@ export function createInteractiveCardElement(
             currentVariantIndex++;
             if (currentVariantIndex < signs.length) {
                 const nextSign = signs[currentVariantIndex];
-                videoPlayer.src = buildVideoUrl(nextSign.id, nextSign.word);
+                const videoUrl = buildVideoUrl(nextSign.id, nextSign.word);
+                console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', nextSign.id, 'word:', nextSign.word);
+                videoPlayer.src = videoUrl;
                 if (variantCounter) {
                     variantCounter.textContent = `🔗 ${currentVariantIndex + 1}/${signs.length}`;
                 }
@@ -665,7 +671,9 @@ export function createInteractiveCardElement(
             } else {
                 // Loop back to first sign
                 currentVariantIndex = 0;
-                videoPlayer.src = buildVideoUrl(signs[0].id, signs[0].word);
+                const videoUrl = buildVideoUrl(signs[0].id, signs[0].word);
+                console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', signs[0].id, 'word:', signs[0].word);
+                videoPlayer.src = videoUrl;
                 if (variantCounter) {
                     variantCounter.textContent = `🔗 1/${signs.length}`;
                 }
@@ -707,14 +715,18 @@ export function createInteractiveCardElement(
         // Reset to first sign when hovering over compound word
         if (isCompound) {
             currentVariantIndex = 0;
-            videoPlayer.src = buildVideoUrl(signs[0].id, signs[0].word);
+            const videoUrl = buildVideoUrl(signs[0].id, signs[0].word);
+            console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', signs[0].id, 'word:', signs[0].word);
+            videoPlayer.src = videoUrl;
             if (variantCounter) {
                 variantCounter.textContent = `🔗 1/${signs.length}`;
             }
         } else if (signs && signs.length > 1) {
             // Reset to first variant for non-compound words too
             currentVariantIndex = 0;
-            videoPlayer.src = buildVideoUrl(signs[0].id, signs[0].word);
+            const videoUrl = buildVideoUrl(signs[0].id, signs[0].word);
+            console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', signs[0].id, 'word:', signs[0].word);
+            videoPlayer.src = videoUrl;
             updateVariantCounter();
         }
         videoPlayer.play().catch(e => {
@@ -728,13 +740,17 @@ export function createInteractiveCardElement(
         // Reset to first sign
         if (isCompound) {
             currentVariantIndex = 0;
-            videoPlayer.src = buildVideoUrl(signs[0].id, signs[0].word);
+            const videoUrl = buildVideoUrl(signs[0].id, signs[0].word);
+            console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', signs[0].id, 'word:', signs[0].word);
+            videoPlayer.src = videoUrl;
             if (variantCounter) {
                 variantCounter.textContent = `🔗 1/${signs.length}`;
             }
         } else if (signs && signs.length > 1) {
             currentVariantIndex = 0;
-            videoPlayer.src = buildVideoUrl(signs[0].id, signs[0].word);
+            const videoUrl = buildVideoUrl(signs[0].id, signs[0].word);
+            console.log('VideoGrid: Genererad videolänk:', videoUrl, 'id:', signs[0].id, 'word:', signs[0].word);
+            videoPlayer.src = videoUrl;
             updateVariantCounter();
         }
     };

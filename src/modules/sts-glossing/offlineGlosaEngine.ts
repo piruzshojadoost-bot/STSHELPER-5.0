@@ -147,10 +147,19 @@ export class OfflineGlosaEngine {
   private glosaSingleSentence(sentence: string): string {
     // KRITISKT: Detectera fråga INNAN normalisering (tar bort skiljetecken)
     const isQuestion = this.isQuestion(sentence);
-    
+
+    // SPECIALFALL: Om hela meningen är ett ord som kan lemmatiseras direkt
+    const normalized = sentence.replace(/[.,!?;:]/g, '').trim().toLowerCase();
+    // Kolla om normalized finns i inflectionMap eller lemmatizer
+    const lemma = this.lemmatizeWord(normalized);
+    // Om lemma är "FÖRSTÅ" och normalized är "förstår" eller "förstå" så returnera direkt
+    if ((normalized === 'förstår' || normalized === 'förstå') && lemma === 'FÖRSTÅ') {
+      return lemma + (isQuestion ? '?' : '.');
+    }
+
     // 🆕 STEG 0: Tokenisera med komma-markering
     const tokensWithPunctuation = this.tokenizeWithPunctuation(sentence);
-    
+
     // Steg 1: Extrahera negationsord
     const hasNegation = tokensWithPunctuation.some(t => this.negationWords.has(t.word.toLowerCase()));
 
@@ -165,7 +174,7 @@ export class OfflineGlosaEngine {
     // Steg 4: Bygg resultat med komma efter rätt ord
     const resultWords = glosTokens.map(t => t.hasCommaAfter ? t.word + ',' : t.word);
     const glosedText = resultWords.join(' ');
-    
+
     if (glosedText) {
       return glosedText + (isQuestion ? '?' : '.');
     }
@@ -202,11 +211,16 @@ export class OfflineGlosaEngine {
     const timeTokens: Array<{word: string, hasCommaAfter: boolean}> = [];
     const mainTokens: Array<{word: string, hasCommaAfter: boolean}> = [];
     let pendingCommaForNext = false; // 🆕 Komma från ledande stopwords som ska fästas på nästa ord
-    
+
+    // SPECIALFALL: Om meningen är exakt ett ord och det är "förstår", hantera som ett ord
+    if (tokens.length === 1 && tokens[0].word.toLowerCase() === 'förstår') {
+      mainTokens.push({ word: this.lemmatizeWord('förstår'), hasCommaAfter: tokens[0].hasCommaAfter });
+      return mainTokens;
+    }
+
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
       const lower = token.word.toLowerCase();
-      
       // Skippa stopwords
       if (this.stopwords.has(lower)) {
         if (token.hasCommaAfter) {
@@ -222,20 +236,16 @@ export class OfflineGlosaEngine {
         }
         continue;
       }
-      
       // Lemmatisera
       const lemma = this.lemmatizeWord(token.word);
       if (lemma.length === 0) continue;
-      
       const newToken = { word: lemma, hasCommaAfter: token.hasCommaAfter };
-      
       // STS-ordning: Tidsord placeras först
       if (this.timelineWords.has(lower)) {
         timeTokens.push(newToken);
       } else {
         mainTokens.push(newToken);
       }
-      
       // 🆕 Om vi hade pending komma från ledande stopword, lägg det på detta ord
       // (det första riktiga ordet efter ledande stopwords)
       if (pendingCommaForNext) {
@@ -247,15 +257,15 @@ export class OfflineGlosaEngine {
         pendingCommaForNext = false;
       }
     }
-    
+
     // Kombinera: tidsord först, sedan huvudord
     const result = [...timeTokens, ...mainTokens];
-    
+
     // 🆕 Ta bort trailing komma på sista ordet (undvik ",." eller ",?")
     if (result.length > 0) {
       result[result.length - 1].hasCommaAfter = false;
     }
-    
+
     return result;
   }
 
@@ -288,7 +298,7 @@ export class OfflineGlosaEngine {
       .filter(w => w.length > 0);
   }
 
-  private lemmatizeWord(word: string): string {
+  public lemmatizeWord(word: string): string {
     const lower = word.toLowerCase();
 
     // Kontrollera inflektionskartan

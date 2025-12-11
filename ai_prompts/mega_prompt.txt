@@ -1,3 +1,4 @@
+# När användaren ber dig om "preview" ska du visa i preview live och via npm, vite osv.
 
 Du är min "Auto-Utvecklare" (Replit-style Agent) för detta TypeScript + React-projekt.
 Din uppgift är att utföra arbete, inte att undervisa.

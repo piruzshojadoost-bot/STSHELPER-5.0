@@ -117,6 +117,9 @@ inflectionMap.set('kvällarna', 'kväll');
 inflectionMap.set('nya', 'ny');
 inflectionMap.set('små', 'liten');
 
+// Verb inflections (present tense to infinitive)
+inflectionMap.set('förstår', 'förstå');
+
 // 🆕 PERFECT PARTICIP - dessa är redan grundformer, ska INTE modifieras
 inflectionMap.set('sett', 'sett');
 inflectionMap.set('gjort', 'gjort');
