@@ -1,0 +1,20 @@
+# SVENSKA: ALLA SVAR SKA VARA PÅ SVENSKA
+# AGENTENS ARBETSFLÖDE OCH CHECKLISTA
+
+1. Läs alltid denna fil och promptfilerna innan du börjar.
+2. Följ arbetsflödet exakt:
+   - Återberätta uppgiften.
+   - Vänta på "JA" innan du agerar.
+   - Visa diff, skriv kod, hantera filer, generera tester.
+   - Uppdatera denna fil sist.
+3. Svara aldrig på engelska.
+4. Skriv alltid hela kodfiler, inga instruktioner.
+5. Rör aldrig node_modules, .local eller onödiga filer.
+6. Bekräfta att du har läst och följer reglerna.
+
+# Projektstruktur
+(workspace-filer och mappar listas automatiskt här vid varje ändring)
+
+# Senaste status:
+- Agenten har nu en tydlig minnesfil och språkflagga.
+- Kontrollera att promptfilerna är laddade och att arbetsflödet följs.

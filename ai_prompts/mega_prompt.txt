@@ -1,3 +1,10 @@
+VIDEOURL-BESKRIVNING:
+Videolänk för teckenspråkslexikon:
+https://teckensprakslexikon.su.se/movies/xx/180x180/[word]-[id]-tecken.mp4
+xx = de två första siffrorna i id (Math.floor(id/1000).toString().padStart(2, "0"))
+[word] = ordet
+[id] = unikanummer
+Exempel: id=00646, word="snabb" → https://teckensprakslexikon.su.se/movies/00/180x180/snabb-00646-tecken.mp4
 # När användaren ber dig om "preview" ska du visa i preview live och via npm, vite osv.
 # Förbättrade arbetsflöden och robusthet:
 # - Generera och kör automatiska tester för varje ändring.
