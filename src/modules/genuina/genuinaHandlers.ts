@@ -7,6 +7,32 @@ import { originalTextDisplay, buildVideoUrl } from '../../ui';
 let highlighter: PhraseHighlighter | null = null;
 let currentTooltip: HTMLElement | null = null;
 
+// Cache för att undvika onödiga uppdateringar
+let lastMatchCount = 0;
+
+/**
+ * Uppdatera badge på Genuina tecken-knappen
+ */
+function updateGenuinaBadge(matchCount: number) {
+    const badge = document.getElementById('genuinaTeckenBadge');
+    const btn = document.getElementById('genuinaTeckenBtn');
+    
+    if (!badge || !btn) return;
+    
+    // Undvik onödiga DOM-uppdateringar
+    if (matchCount === lastMatchCount) return;
+    lastMatchCount = matchCount;
+    
+    if (matchCount > 0) {
+        badge.textContent = String(matchCount);
+        badge.classList.remove('hidden');
+        btn.classList.add('genuina-btn-active');
+    } else {
+        badge.classList.add('hidden');
+        btn.classList.remove('genuina-btn-active');
+    }
+}
+
 /**
  * Sätt upp genuina tecken funktionalitet
  */
@@ -23,9 +49,13 @@ export async function setupGenuinaTecken() {
     if (originalTextDisplay) {
         highlighter = new PhraseHighlighter(originalTextDisplay);
 
-        // Highlight när användaren skriver
+        // Highlight när användaren skriver + uppdatera badge
         originalTextDisplay.addEventListener('input', () => {
             highlighter?.highlight();
+            // Kolla om det finns matchningar och uppdatera badge
+            const text = originalTextDisplay.textContent || '';
+            const matches = genuinaTeckenService.findMatches(text);
+            updateGenuinaBadge(matches.length);
         });
 
         // Highlight när textfältet får focus (om det redan finns text)

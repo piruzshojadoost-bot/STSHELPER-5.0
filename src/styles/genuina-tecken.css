@@ -1,5 +1,64 @@
 /* === GENUINA TECKEN STYLING === */
 
+/* Badge på Genuina tecken-knappen */
+.genuina-btn-container {
+    position: relative;
+}
+
+.genuina-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: linear-gradient(135deg, rgb(34, 197, 94) 0%, rgb(16, 185, 129) 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+    animation: genuina-pulse 2s infinite;
+}
+
+.genuina-badge.hidden {
+    display: none;
+}
+
+/* Lysande knapp när det finns matchningar */
+.genuina-btn-active {
+    border-color: rgb(34, 197, 94) !important;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4), 0 0 30px rgba(34, 197, 94, 0.2) !important;
+    animation: genuina-glow 2s infinite !important;
+}
+
+.genuina-btn-active svg {
+    color: rgb(34, 197, 94) !important;
+}
+
+@keyframes genuina-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.7);
+    }
+}
+
+@keyframes genuina-glow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.4), 0 0 30px rgba(34, 197, 94, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3);
+    }
+}
+
 /* Highlight för genuina tecken i text input */
 mark.genuine-phrase {
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.25) 100%);
