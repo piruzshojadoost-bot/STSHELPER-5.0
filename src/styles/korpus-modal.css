@@ -1,0 +1,71 @@
+/* Enkel styling för Korpus-modal */
+.korpus-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.korpus-modal.hidden { display: none; }
+.korpus-modal-content {
+  background: #181c24;
+  border-radius: 12px;
+  padding: 2em;
+  min-width: 320px;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.korpus-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.korpus-modal-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #22c55e;
+}
+.korpus-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #aaa;
+  cursor: pointer;
+}
+.korpus-modal-search {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #23272f;
+  color: #fff;
+}
+.korpus-modal-list {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+}
+.korpus-modal-item {
+  padding: 0.5em 0.3em;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+}
+.korpus-modal-item:hover {
+  background: #222f22;
+}
+.korpus-modal-translation {
+  color: #aaa;
+  font-size: 0.95em;
+}
+.korpus-modal-video {
+  text-align: center;
+}
+.korpus-modal-error, .korpus-modal-empty {
+  color: #e22;
+  text-align: center;
+  margin: 1em 0;
+}

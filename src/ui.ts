@@ -1,4 +1,14 @@
 
+import { setupKorpusModal } from './modules/korpus/korpusModal';
+
+// Initiera Korpus-modal när sidan laddas
+if (typeof window !== 'undefined') {
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', setupKorpusModal);
+	} else {
+		setupKorpusModal();
+	}
+}
 // --- CENTRAL UI EXPORT MODULE (FACADE) ---
 
 // Notification Service
