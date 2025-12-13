@@ -1,6 +1,7 @@
 // Genuina Tecken (Idiomatiska uttryck) service
 // Laddar och matchar genuina tecken i svensk text
 
+import { fetchGenuinaTeckenData } from '../../services/data/genuinaDataService';
 export interface GenuintTecken {
     tecken: string;
     id: string;
@@ -26,12 +27,8 @@ class GenuinaTeckenService {
         this.loading = true;
         
         try {
-            const response = await fetch('/data/genuina_tecken.json');
-            if (!response.ok) {
-                throw new Error(`Failed to load genuina tecken: ${response.status}`);
-            }
-            
-            this.genuinaTecken = await response.json();
+            const data = await fetchGenuinaTeckenData();
+            this.genuinaTecken = data;
             
             // Sortera från längst till kortast för korrekt multi-word matching
             this.genuinaTecken.sort((a, b) => {

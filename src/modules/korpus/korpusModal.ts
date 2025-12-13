@@ -53,14 +53,12 @@ export function setupKorpusModal() {
     videoContainer.innerHTML = '';
     if (!query) return;
     // Ladda korpusdata
-    let korpusData: any[] = [];
-    try {
-      const res = await fetch('/data/god_korpus/Korpus.json');
-      korpusData = await res.json();
-    } catch (e) {
-      resultList.innerHTML = '<div class="korpus-modal-error">Kunde inte ladda korpusdata.</div>';
-      return;
-    }
+        let korpusData: any[] = [];
+        korpusData = await fetchKorpusData();
+        if (!korpusData.length) {
+          resultList.innerHTML = '<div class="korpus-modal-error">Kunde inte ladda korpusdata.</div>';
+          return;
+        }
     // Filtrera på alla översättning-fält (case-insensitive)
     const results = korpusData.filter(item => {
       return Object.keys(item).some(key =>
